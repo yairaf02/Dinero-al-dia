@@ -3,6 +3,7 @@ const currency = new Intl.NumberFormat("en-US", {
   currency: "USD",
   minimumFractionDigits: 2,
 });
+const DAYS_IN_MONTH = 30;
 
 function toNumber(value) {
   const parsed = Number(value);
@@ -13,7 +14,7 @@ function calculateBudget(values) {
   const expenseEntries = Object.entries(values.expenses);
   const totalExpenses = expenseEntries.reduce((sum, [, amount]) => sum + amount, 0);
   const safeToSpend = values.income - values.savingsGoal - totalExpenses;
-  const dailyLimit = safeToSpend / 30;
+  const dailyLimit = safeToSpend / DAYS_IN_MONTH;
 
   return {
     totalExpenses,

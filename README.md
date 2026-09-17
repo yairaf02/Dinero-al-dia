@@ -4,4 +4,4 @@ Dinero al Día is a modern personal finance web app that helps users understand 
 
 ## Run locally
 
-Open `/home/runner/work/Dinero-al-dia/Dinero-al-dia/index.html` in any browser.
+From your local clone of this repository, open `index.html` in any browser.
