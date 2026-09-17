@@ -14,7 +14,7 @@ function calculateBudget(values) {
   const expenseEntries = Object.entries(values.expenses);
   const totalExpenses = expenseEntries.reduce((sum, [, amount]) => sum + amount, 0);
   const safeToSpend = values.income - values.savingsGoal - totalExpenses;
-  const dailyLimit = safeToSpend / DAYS_IN_MONTH;
+  const dailyLimit = Math.max(0, safeToSpend) / DAYS_IN_MONTH;
 
   return {
     totalExpenses,
@@ -74,8 +74,7 @@ function readForm(form) {
 const form = document.getElementById("budget-form");
 const errorBox = document.getElementById("error");
 
-form.addEventListener("submit", (event) => {
-  event.preventDefault();
+function runCalculation() {
   errorBox.textContent = "";
 
   try {
@@ -89,6 +88,11 @@ form.addEventListener("submit", (event) => {
   } catch (error) {
     errorBox.textContent = error.message;
   }
+}
+
+form.addEventListener("submit", (event) => {
+  event.preventDefault();
+  runCalculation();
 });
 
-form.requestSubmit();
+runCalculation();
