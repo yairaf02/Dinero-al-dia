@@ -1,6 +1,8 @@
-const currency = new Intl.NumberFormat("en-US", {
+const APP_LOCALE = document.documentElement.lang || navigator.language || "es";
+const APP_CURRENCY = APP_LOCALE.startsWith("es") ? "MXN" : "USD";
+const currency = new Intl.NumberFormat(APP_LOCALE, {
   style: "currency",
-  currency: "USD",
+  currency: APP_CURRENCY,
   minimumFractionDigits: 2,
 });
 const DAYS_IN_MONTH = 30;
@@ -73,9 +75,11 @@ function readForm(form) {
 
 const form = document.getElementById("budget-form");
 const errorBox = document.getElementById("error");
+const warningBox = document.getElementById("warning");
 
 function runCalculation() {
   errorBox.textContent = "";
+  warningBox.textContent = "";
 
   try {
     const values = readForm(form);
@@ -83,7 +87,7 @@ function runCalculation() {
     render(result);
 
     if (result.safeToSpend < 0) {
-      errorBox.textContent = "Warning: your current plan exceeds your income. Reduce expenses or savings target.";
+      warningBox.textContent = "Warning: your current plan exceeds your income. Reduce expenses or savings target.";
     }
   } catch (error) {
     errorBox.textContent = error.message;

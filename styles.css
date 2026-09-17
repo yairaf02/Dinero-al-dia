@@ -88,6 +88,12 @@ button {
   color: var(--danger);
 }
 
+.warning {
+  min-height: 1.2rem;
+  margin: 0.35rem 0 0;
+  color: #8a5800;
+}
+
 .kpis {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
@@ -111,6 +117,10 @@ button {
   margin: 0.35rem 0 0;
   font-size: 1.25rem;
   font-weight: 700;
+}
+
+.kpis small {
+  color: var(--muted);
 }
 
 #breakdown {

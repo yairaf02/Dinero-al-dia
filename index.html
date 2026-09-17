@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="es">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -53,6 +53,7 @@
           </div>
           <button type="submit">Calculate safe spending</button>
           <p id="error" class="error" role="alert" aria-live="polite"></p>
+          <p id="warning" class="warning" aria-live="polite"></p>
         </form>
       </section>
 
@@ -70,6 +71,7 @@
           <article>
             <h3>Daily limit</h3>
             <p id="daily-limit" aria-live="polite">$0.00</p>
+            <small>Average estimate based on a 30-day month.</small>
           </article>
         </div>
         <ul id="breakdown"></ul>
