@@ -1,5 +1,13 @@
-const APP_LOCALE = document.documentElement.lang || navigator.language || "es";
-const APP_CURRENCY = APP_LOCALE.startsWith("es") ? "MXN" : "USD";
+const APP_LOCALE = document.documentElement.dataset.locale || navigator.language || "en-US";
+const APP_CURRENCY = document.documentElement.dataset.currency || "USD";
+const EXPENSE_LABELS = {
+  housing: "Housing",
+  utilities: "Utilities",
+  groceries: "Groceries",
+  transport: "Transport",
+  subscriptions: "Subscriptions",
+  other: "Other spending",
+};
 const currency = new Intl.NumberFormat(APP_LOCALE, {
   style: "currency",
   currency: APP_CURRENCY,
@@ -35,7 +43,7 @@ function render(result) {
   breakdown.innerHTML = "";
   result.breakdown.forEach(([name, amount]) => {
     const item = document.createElement("li");
-    item.textContent = `${name[0].toUpperCase()}${name.slice(1)}: ${currency.format(amount)}`;
+    item.textContent = `${EXPENSE_LABELS[name] || name}: ${currency.format(amount)}`;
     breakdown.appendChild(item);
   });
 }
