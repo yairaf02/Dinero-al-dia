@@ -71,3 +71,28 @@ quality requirements for AI agents working in this repository.
   non-obvious logic.
 - **Documentation:** Update `README.md` when setup, usage, or user-facing
   behavior changes.
+
+## 4. Currency Conversion Feature
+
+- **Purpose:** Let users see the equivalent value of their recorded money in
+  Bolívares (VES), Dólares (USD), and Euros (EUR) so they can understand their
+  finances across currencies.
+- **Base currency:** Transactions and balances remain stored in the user's
+  configured base currency. Conversions are a read-only, derived view and must
+  never alter stored transaction amounts.
+- **Exchange rates:** Maintain a simple, swappable rates source (e.g. a small
+  config object or module) mapping VES, USD, and EUR rates relative to the
+  base currency. Allow the rate values to be updated without touching
+  unrelated app logic.
+- **Display:** Show the current balance (and optionally totals) converted into
+  the other two currencies alongside the base-currency amount, each formatted
+  with its correct currency symbol and exactly two decimal places.
+- **Clarity and trust:** Label each converted amount clearly (e.g. "Bs.",
+  "US$", "€") and, if rates are static/manual, indicate that the rate may not
+  reflect the real-time market rate.
+- **Graceful degradation:** If a rate is missing or invalid, hide or omit that
+  currency's conversion and show a helpful Spanish message instead of
+  breaking the balance display.
+- **Accessibility and privacy:** Follow the same semantic accessibility and
+  financial-data privacy rules as section 3 — converted amounts are still
+  sensitive financial data.
