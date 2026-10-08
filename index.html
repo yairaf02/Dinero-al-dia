@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en" data-locale="en-US" data-currency="USD">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dinero al Día</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <main class="app">
+      <header>
+        <p class="eyebrow">Personal finance dashboard</p>
+        <h1>Dinero al Día</h1>
+        <p>Understand where your money goes and how much you can safely spend each month.</p>
+      </header>
+
+      <section class="card">
+        <h2>Monthly inputs</h2>
+        <form id="budget-form" novalidate>
+          <div class="field-grid">
+            <label>
+              Net income
+              <input type="number" min="0" step="0.01" name="income" value="3500" required />
+            </label>
+            <label>
+              Savings goal
+              <input type="number" min="0" step="0.01" name="savingsGoal" value="500" required />
+            </label>
+            <label>
+              Housing
+              <input type="number" min="0" step="0.01" name="housing" value="1100" required />
+            </label>
+            <label>
+              Utilities
+              <input type="number" min="0" step="0.01" name="utilities" value="180" required />
+            </label>
+            <label>
+              Groceries
+              <input type="number" min="0" step="0.01" name="groceries" value="420" required />
+            </label>
+            <label>
+              Transport
+              <input type="number" min="0" step="0.01" name="transport" value="220" required />
+            </label>
+            <label>
+              Subscriptions
+              <input type="number" min="0" step="0.01" name="subscriptions" value="65" required />
+            </label>
+            <label>
+              Other spending
+              <input type="number" min="0" step="0.01" name="other" value="250" required />
+            </label>
+          </div>
+          <button type="submit">Calculate safe spending</button>
+          <p id="error" class="error" role="alert" aria-live="polite"></p>
+          <p id="warning" class="warning" aria-live="polite"></p>
+        </form>
+      </section>
+
+      <section class="card results">
+        <h2>Monthly outlook</h2>
+        <div class="kpis">
+          <article>
+            <h3>Total expenses</h3>
+            <p id="total-expenses" aria-live="polite">$0.00</p>
+          </article>
+          <article>
+            <h3>Safe to spend</h3>
+            <p id="safe-to-spend" aria-live="polite">$0.00</p>
+          </article>
+          <article>
+            <h3>Daily limit</h3>
+            <p id="daily-limit" aria-live="polite">$0.00</p>
+            <small>Average estimate based on a 30-day month.</small>
+          </article>
+        </div>
+        <ul id="breakdown"></ul>
+      </section>
+    </main>
+
+    <script src="script.js" defer></script>
+  </body>
+</html>
