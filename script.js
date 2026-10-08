@@ -36,11 +36,11 @@ elements.form.addEventListener("submit", handleSubmit);
 elements.period.addEventListener("change", () => {
   state.period = elements.period.value;
   render();
-  fetchBcvRates()
-    .then(() => render())
-    .catch(() => renderRateStatus());
 });
 render();
+fetchBcvRates()
+  .then(() => render())
+  .catch(() => renderRateStatus());
 
 function handleSubmit(event) {
   event.preventDefault();
@@ -156,14 +156,27 @@ function renderTransactions(transactions) {
     const item = document.createElement("li");
     item.className = `transaction transaction--${transaction.type}`;
     const sign = transaction.type === "income" ? "+" : "−";
+    const amounts = ["USD", "VES", "EUR"].map((currency) => {
+      const amount = currency === "USD"
+        ? transaction.amount
+        : convertFromUsd(transaction.amount, currency);
+      const label = getCurrencyLabel(currency);
+      if (amount === null) {
+        return `<span class="transaction-conversion transaction-conversion--unavailable">${label}: conversión no disponible</span>`;
+      }
+
+      const amountClass = currency === "USD"
+        ? `transaction-amount transaction-amount--${transaction.type}`
+        : "transaction-conversion";
+      return `<span class="${amountClass}">${label}: ${sign}${formatCurrency(amount, currency)}</span>`;
+    }).join("");
+
     item.innerHTML = `
       <div>
         <strong>${escapeHtml(transaction.description)}</strong>
         <time datetime="${transaction.date}">${formatDate(transaction.date)}</time>
       </div>
-      <span class="transaction-amount transaction-amount--${transaction.type}">
-        ${sign}${formatCurrency(transaction.amount)}
-      </span>
+      <div class="transaction-amounts">${amounts}</div>
     `;
     elements.list.append(item);
   }

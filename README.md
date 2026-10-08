@@ -18,8 +18,11 @@ servidor.
 - `currency.js`: consulta de tasas BCV, respaldo local y formateo/conversión de
   monedas.
 
-La aplicación consulta `https://bcv.today/api/v1/rate.json`, un servicio
-intermediario que publica tasas basadas en el BCV. Si la consulta falla, usa la
-última tasa válida guardada localmente o una tasa de respaldo manual. La fecha
-y el origen de la tasa se muestran en el resumen. Las conversiones son una
-vista derivada: no modifican los montos guardados.
+Al abrir la aplicación, consulta automáticamente
+`https://bcv.today/api/v1/rate.json`, un servicio intermediario que publica
+tasas basadas en el BCV. Si la consulta falla, usa la última tasa válida
+guardada localmente o una tasa de respaldo manual. La fecha y el origen de la
+tasa se muestran en el resumen. El historial muestra cada movimiento en
+dólares y sus equivalentes en bolívares y euros cuando las tasas están
+disponibles. Las conversiones son una vista derivada: no modifican los montos
+guardados.
