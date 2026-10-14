@@ -8,10 +8,11 @@ conversiones estimadas a otras monedas.
 
 ## 2. Alcance del MVP
 
-El MVP debe permitir:
+La aplicación debe permitir:
 
 - Registrar ingresos y gastos con descripción, monto y fecha.
-- Guardar los movimientos localmente en el navegador.
+- Crear una cuenta e iniciar y cerrar sesión.
+- Guardar los movimientos en una base de datos, separados por cuenta.
 - Consultar ingresos, gastos y balance.
 - Filtrar el resumen por todo el tiempo o por el mes actual.
 - Mostrar movimientos del más reciente al más antiguo.
@@ -19,9 +20,8 @@ El MVP debe permitir:
   referenciales basadas en el BCV.
 - Mantener la interfaz clara, responsive y accesible.
 
-No forma parte del MVP:
+No forma parte del alcance actual:
 
-- Cuentas de usuario, inicio de sesión o sincronización en la nube.
 - Tasas de cambio en tiempo real.
 - Presupuestos, categorías, reportes avanzados o exportación.
 - Edición o eliminación de movimientos.
@@ -33,6 +33,7 @@ Cada movimiento debe tener esta forma:
 ```text
 {
   id: string,
+  user_id: string,
   type: "income" | "expense",
   description: string,
   amount: number,
@@ -44,9 +45,11 @@ Reglas:
 
 - `amount` representa una cantidad positiva en USD y se guarda con máximo dos
   decimales.
+- `user_id` identifica la cuenta propietaria y debe corresponder a la sesión
+  autenticada.
 - El tipo determina si el monto se suma como ingreso o se resta como gasto.
-- Los datos guardados son sensibles y no deben escribirse en logs ni enviarse
-  a servicios externos.
+- Los datos guardados son sensibles y solo deben ser accesibles por la cuenta
+  propietaria mediante políticas de seguridad en la base de datos.
 
 ## 4. Requisitos funcionales
 
@@ -55,7 +58,8 @@ Reglas:
 **Dado** que la persona está en el formulario de nuevo movimiento  
 **Cuando** selecciona un tipo, escribe una descripción, un monto válido,
 elige una fecha y envía el formulario  
-**Entonces** el movimiento se guarda localmente y aparece en la lista.
+**Entonces** el movimiento se guarda en la cuenta autenticada y aparece en la
+lista.
 
 ### RF-02: Validar el monto
 
@@ -73,10 +77,25 @@ campos requeridos.
 
 ### RF-04: Persistir movimientos
 
-**Dado** que existen movimientos guardados  
-**Cuando** la persona recarga o vuelve a abrir la aplicación en el mismo
-navegador  
-**Entonces** los movimientos siguen disponibles.
+**Dado** que existen movimientos guardados, **cuando** la persona inicia sesión
+en su cuenta, **entonces** sus movimientos siguen disponibles y no se muestran
+los de otras cuentas.
+
+### RF-12: Administrar una cuenta
+
+**Dado** que la persona no ha iniciado sesión, **cuando** crea una cuenta o
+inicia sesión con credenciales válidas, **entonces** puede acceder a sus propios
+movimientos y se informa si debe confirmar su correo electrónico.
+
+**Cuando** cierra sesión, **entonces** los movimientos dejan de mostrarse y la
+aplicación solicita autenticación para volver a consultarlos.
+
+### RF-13: Aislar datos por cuenta
+
+**Dado** que una persona autenticada consulta o guarda movimientos, **cuando**
+la base de datos procesa la operación, **entonces** las políticas RLS permiten
+únicamente leer o insertar registros cuyo propietario coincide con la cuenta
+autenticada.
 
 ### RF-05: Calcular el resumen
 
@@ -158,7 +177,11 @@ romper el balance principal.
 - Usar HTML5, CSS3 y JavaScript nativo sin frameworks externos.
 - Mantener la consulta, el respaldo y las tasas en una fuente configurable y
   separada de la lógica de movimientos.
-- Usar `localStorage` únicamente para la persistencia local del MVP.
+- Usar Supabase Auth para gestionar sesiones y PostgreSQL con políticas RLS
+  para persistir transacciones por usuario.
+- No guardar transacciones financieras en `localStorage`; el SDK de Auth puede
+  mantener la sesión localmente.
+- No incluir claves `service_role` ni secretos en el cliente.
 - No incluir montos o descripciones financieras en mensajes de error técnicos.
 - Mantener el renderizado responsive con al menos 1.000 movimientos.
 - No introducir un paso de build obligatorio.
@@ -167,13 +190,14 @@ romper el balance principal.
 
 El MVP se considera listo cuando:
 
-1. Se pueden registrar ingresos y gastos válidos.
-2. Se rechazan montos inválidos sin guardar datos incorrectos.
-3. Los datos persisten después de recargar.
-4. Los totales y el balance coinciden con los movimientos visibles.
-5. El filtro mensual cambia correctamente la lista y el resumen.
-6. Las conversiones usan tasas basadas en BCV o un respaldo identificado y no
+1. Se puede crear una cuenta, iniciar sesión y cerrar sesión.
+2. Se pueden registrar ingresos y gastos válidos desde una sesión activa.
+3. Se rechazan montos inválidos sin guardar datos incorrectos.
+4. Los movimientos de cada cuenta persisten y no se exponen a otras cuentas.
+5. Los totales y el balance coinciden con los movimientos visibles.
+6. El filtro mensual cambia correctamente la lista y el resumen.
+7. Las conversiones usan tasas basadas en BCV o un respaldo identificado y no
    alteran el balance base.
-7. Los estados vacío, error y éxito son claros y accesibles.
-8. La aplicación funciona en pantalla pequeña y grande.
-9. La sintaxis JavaScript y las comprobaciones disponibles pasan sin errores.
+8. Los estados vacío, error y éxito son claros y accesibles.
+9. La aplicación funciona en pantalla pequeña y grande.
+10. La sintaxis JavaScript y las comprobaciones disponibles pasan sin errores.

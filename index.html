@@ -17,6 +17,56 @@
     </header>
 
     <main class="container">
+      <section class="panel auth-panel" aria-labelledby="account-title">
+        <p class="eyebrow">Tu espacio personal</p>
+        <h2 id="account-title">Accede a tus finanzas</h2>
+        <p id="auth-message" class="form-message" role="status" aria-live="polite">
+          Verificando la configuración de la cuenta...
+        </p>
+        <div id="auth-forms" class="auth-grid">
+          <form id="sign-in-form">
+            <h3>Iniciar sesión</h3>
+            <div class="field">
+              <label for="sign-in-email">Correo electrónico</label>
+              <input id="sign-in-email" name="email" type="email"
+                autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="sign-in-password">Contraseña</label>
+              <input id="sign-in-password" name="password" type="password"
+                autocomplete="current-password" required>
+            </div>
+            <button type="submit">Iniciar sesión</button>
+          </form>
+          <form id="sign-up-form">
+            <h3>Crear cuenta</h3>
+            <div class="field">
+              <label for="sign-up-email">Correo electrónico</label>
+              <input id="sign-up-email" name="email" type="email"
+                autocomplete="email" required>
+            </div>
+            <div class="field">
+              <label for="sign-up-password">Contraseña (mínimo 8 caracteres)</label>
+              <input id="sign-up-password" name="password" type="password"
+                autocomplete="new-password" minlength="8" required>
+            </div>
+            <button type="submit">Crear cuenta</button>
+          </form>
+        </div>
+        <div id="session-panel" class="session-panel" hidden>
+          <p id="session-email"></p>
+          <button id="sign-out-button" class="button-secondary" type="button">
+            Cerrar sesión
+          </button>
+        </div>
+      </section>
+
+      <p id="account-status" class="form-message" role="status" aria-live="polite" hidden></p>
+      <button id="retry-load-button" class="button-secondary retry-button" type="button" hidden>
+        Reintentar cargar movimientos
+      </button>
+
+      <div id="account-content" hidden>
       <section aria-labelledby="summary-title">
         <div class="section-heading">
           <div>
@@ -97,6 +147,7 @@
           <ul id="transaction-list" class="transaction-list"
             aria-label="Movimientos con montos en diferentes monedas" aria-live="polite"></ul>
         </section>
+      </div>
       </div>
     </main>
 

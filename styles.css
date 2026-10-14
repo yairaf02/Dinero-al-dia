@@ -24,6 +24,10 @@
   box-sizing: border-box;
 }
 
+[hidden] {
+  display: none !important;
+}
+
 body {
   margin: 0;
   line-height: 1.5;
@@ -269,6 +273,48 @@ button:focus {
   padding: 1.5rem;
 }
 
+.auth-panel {
+  margin-bottom: 1.5rem;
+}
+
+.auth-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1.5rem;
+}
+
+.auth-grid form {
+  min-width: 0;
+}
+
+.session-panel {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+}
+
+.session-panel p {
+  margin: 0;
+  overflow-wrap: anywhere;
+  font-weight: 750;
+}
+
+.button-secondary {
+  width: auto;
+  background: var(--purple);
+  box-shadow: none;
+}
+
+.button-secondary:hover {
+  background: var(--purple-dark);
+  box-shadow: none;
+}
+
+.retry-button {
+  margin: 0 0 1rem;
+}
+
 .field {
   margin-bottom: 1rem;
 }
@@ -291,6 +337,12 @@ button:hover {
   background: linear-gradient(135deg, var(--coral-dark), var(--coral));
   box-shadow: 0 10px 20px rgb(240 100 93 / 30%);
   transform: translateY(-1px);
+}
+
+button:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+  transform: none;
 }
 
 .form-message {
@@ -408,7 +460,8 @@ button:hover {
   }
 
   .summary-grid,
-  .content-grid {
+  .content-grid,
+  .auth-grid {
     grid-template-columns: 1fr;
   }
 
@@ -418,6 +471,15 @@ button:hover {
   }
 
   .period-label {
+    width: 100%;
+  }
+
+  .session-panel {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .session-panel .button-secondary {
     width: 100%;
   }
 }
