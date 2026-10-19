@@ -17,7 +17,9 @@ y transacciones se administran con Supabase Auth y PostgreSQL.
 4. En Supabase, configura la URL del sitio y las URL de redirección de Auth
    para el origen desde el que servirás la aplicación. El registro puede
    requerir confirmar el correo antes de iniciar sesión, según la configuración
-   de confirmación de correo del proyecto.
+   de confirmación de correo del proyecto. El enlace de confirmación vuelve a
+   la dirección actual de la aplicación; si pruebas localmente en el puerto
+   `8765`, agrega `http://localhost:8765/**` a las URL permitidas.
 
 ## Ejecución local
 
@@ -51,7 +53,8 @@ Antes de compartir la aplicación:
 2. En Supabase Auth, establece como URL del sitio
    `https://yairaf02.github.io/Dinero-al-dia/` y agrega
    `https://yairaf02.github.io/Dinero-al-dia/**` a las URL de redirección
-   permitidas.
+   permitidas. Si también pruebas localmente en el puerto `8765`, agrega
+   `http://localhost:8765/**`.
 3. Ejecuta el workflow y espera a que el despliegue termine correctamente.
 
 ## Estructura

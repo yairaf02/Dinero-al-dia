@@ -153,7 +153,10 @@ async function handleSignUp(event) {
   await authenticate(
     () => supabaseClient.auth.signUp({
       email,
-      password: formData.get("password")
+      password: formData.get("password"),
+      options: {
+        emailRedirectTo: `${window.location.origin}${window.location.pathname}`
+      }
     }),
     "No se pudo crear la cuenta. Verifica los datos e inténtalo de nuevo.",
     (data) => {
