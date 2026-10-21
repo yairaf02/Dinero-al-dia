@@ -43,10 +43,9 @@ const elements = {
   message: document.querySelector("#form-message"),
   period: document.querySelector("#period-filter"),
   comparisonPeriod: document.querySelector("#comparison-period"),
+  comparisonPie: document.querySelector("#comparison-pie"),
   comparisonIncome: document.querySelector("#comparison-income-value"),
   comparisonExpense: document.querySelector("#comparison-expense-value"),
-  incomeBar: document.querySelector("#income-bar"),
-  expenseBar: document.querySelector("#expense-bar"),
   comparisonMessage: document.querySelector("#comparison-message"),
   balance: document.querySelector("#balance-value"),
   income: document.querySelector("#income-value"),
@@ -441,19 +440,23 @@ function sumByType(transactions, type) {
 }
 
 function renderComparison(income, expense, transactionCount) {
-  const maxValue = Math.max(income, expense);
-  const incomeWidth = maxValue > 0 ? (income / maxValue) * 100 : 0;
-  const expenseWidth = maxValue > 0 ? (expense / maxValue) * 100 : 0;
-  const period = state.period === "month" ? "Este mes" : "Todo el tiempo";
-  const periodDescription = state.period === "month" ? "este mes" : "el período completo";
+  const total = income + expense;
+  const incomePercentage = total > 0 ? (income / total) * 100 : 0;
+  const period = state.period === "month" ? "Este mes" : "General";
+  const periodDescription = state.period === "month" ? "este mes" : "el período general";
 
   elements.comparisonPeriod.textContent = period;
   elements.comparisonIncome.textContent = formatCurrency(income);
   elements.comparisonExpense.textContent = formatCurrency(expense);
-  elements.incomeBar.style.width = `${incomeWidth}%`;
-  elements.expenseBar.style.width = `${expenseWidth}%`;
+  elements.comparisonPie.style.background = total > 0
+    ? `conic-gradient(var(--income) 0 ${incomePercentage}%, var(--expense) ${incomePercentage}% 100%)`
+    : "";
+  elements.comparisonPie.setAttribute(
+    "aria-label",
+    `Ingresos: ${formatCurrency(income)}. Gastos: ${formatCurrency(expense)}.`
+  );
   elements.comparisonMessage.textContent = transactionCount > 0
-    ? `Comparación para ${period.toLowerCase()}.`
+    ? `Comparación del período ${period.toLowerCase()}.`
     : `Aún no hay movimientos para comparar en ${periodDescription}.`;
 }
 

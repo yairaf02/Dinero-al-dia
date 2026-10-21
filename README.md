@@ -38,8 +38,9 @@ por correo para establecer una nueva. Al crear una cuenta se solicita un nombre
 para mostrar; las sesiones nuevas saludan con ese nombre. Las cuentas previas
 sin nombre guardado muestran el título genérico “Tu cuenta”.
 
-El resumen incluye una comparación visual de ingresos y gastos. Las barras y
-sus importes corresponden al período seleccionado.
+El resumen incluye una gráfica circular de ingresos y gastos, junto con sus
+importes. La gráfica corresponde al período seleccionado: **General** muestra
+todos los movimientos y **Este mes** solo los del mes actual.
 
 ## Compartir en GitHub Pages
 
@@ -70,7 +71,7 @@ Antes de compartir la aplicación:
 - `index.html`: estructura semántica, formularios de cuenta y controles de la app.
 - `styles.css`: estilos responsive, contraste y estados de foco.
 - `script.js`: autenticación, recuperación de contraseña, carga/guardado por
-  usuario, saludo personalizado, comparación de ingresos/gastos, validación y
+  usuario, saludo personalizado, gráfica de ingresos/gastos, validación y
   cálculos.
 - `supabase-client.js`: configuración del cliente oficial `supabase-js`.
 - `.github/workflows/deploy-pages.yml`: despliegue estático a GitHub Pages.

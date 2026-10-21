@@ -119,9 +119,9 @@ nombre se inserta de forma segura en la interfaz.
 ### RF-16: Comparar ingresos y gastos visualmente
 
 **Dado** un período seleccionado, **cuando** se muestra el resumen, **entonces**
-se comparan visualmente los ingresos y gastos del mismo período junto con sus
-valores en texto. Las barras se actualizan al cambiar entre “Este mes” y “Todo
-el tiempo”.
+se comparan visualmente los ingresos y gastos del mismo período en una gráfica
+circular junto con sus valores en texto. La gráfica se actualiza al cambiar
+entre “Este mes” y “General”.
 
 ### RF-05: Calcular el resumen
 
@@ -141,7 +141,7 @@ el tiempo”.
 **Entonces** el resumen y la lista consideran únicamente movimientos del mes
 actual.
 
-**Cuando** se selecciona “Todo el tiempo”  
+**Cuando** se selecciona “General”
 **Entonces** se consideran todos los movimientos guardados.
 
 ### RF-07: Ordenar movimientos
@@ -231,5 +231,5 @@ El MVP se considera listo cuando:
     saludo; cuentas previas sin nombre conservan el título genérico.
 12. El resumen muestra las tasas BCV de USD/VES y EUR/VES y su fecha; la caché
     o el respaldo manual se distinguen de una consulta en vivo.
-13. La comparación visual refleja ingresos y gastos del período seleccionado,
+13. La gráfica circular refleja ingresos y gastos del período seleccionado,
     muestra también sus valores y ofrece un estado vacío claro.

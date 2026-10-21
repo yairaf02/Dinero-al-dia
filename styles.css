@@ -256,41 +256,48 @@ button:focus {
 
 .comparison-chart {
   display: grid;
-  gap: 1.1rem;
+  grid-template-columns: minmax(8rem, 0.8fr) minmax(0, 1.2fr);
+  align-items: center;
+  gap: 1.5rem;
 }
 
-.comparison-row {
-  display: grid;
-  gap: 0.45rem;
-}
-
-.comparison-label {
-  display: flex;
-  justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.9rem;
-  font-weight: 750;
-}
-
-.comparison-track {
-  height: 0.85rem;
-  overflow: hidden;
-  border-radius: 999px;
+.comparison-pie {
+  width: min(100%, 13rem);
+  aspect-ratio: 1;
+  justify-self: center;
+  border-radius: 50%;
   background: #eee8f6;
 }
 
-.comparison-bar {
-  display: block;
-  height: 100%;
-  border-radius: inherit;
-  transition: width 220ms ease;
+.comparison-legend {
+  display: grid;
+  gap: 0.8rem;
 }
 
-.comparison-bar--income {
+.comparison-legend-item {
+  display: grid;
+  grid-template-columns: 0.9rem minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 0.65rem;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.comparison-legend-item strong {
+  text-align: right;
+}
+
+.comparison-legend-swatch {
+  width: 0.85rem;
+  height: 0.85rem;
+  border-radius: 50%;
+}
+
+.comparison-legend-swatch--income {
   background: var(--income);
 }
 
-.comparison-bar--expense {
+.comparison-legend-swatch--expense {
   background: var(--expense);
 }
 
@@ -559,6 +566,14 @@ button:disabled {
 @media (max-width: 500px) {
   .transaction {
     column-gap: 0.45rem;
+  }
+
+  .comparison-chart {
+    grid-template-columns: 1fr;
+  }
+
+  .comparison-pie {
+    width: min(100%, 11rem);
   }
 
   .transaction-conversion {
