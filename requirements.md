@@ -116,6 +116,13 @@ saludo al iniciar sesión.
 Las cuentas sin nombre guardado conservan un título genérico, y el texto del
 nombre se inserta de forma segura en la interfaz.
 
+### RF-16: Comparar ingresos y gastos visualmente
+
+**Dado** un período seleccionado, **cuando** se muestra el resumen, **entonces**
+se comparan visualmente los ingresos y gastos del mismo período junto con sus
+valores en texto. Las barras se actualizan al cambiar entre “Este mes” y “Todo
+el tiempo”.
+
 ### RF-05: Calcular el resumen
 
 **Dado** un conjunto de movimientos  
@@ -224,3 +231,5 @@ El MVP se considera listo cuando:
     saludo; cuentas previas sin nombre conservan el título genérico.
 12. El resumen muestra las tasas BCV de USD/VES y EUR/VES y su fecha; la caché
     o el respaldo manual se distinguen de una consulta en vivo.
+13. La comparación visual refleja ingresos y gastos del período seleccionado,
+    muestra también sus valores y ofrece un estado vacío claro.

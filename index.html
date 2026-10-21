@@ -124,6 +124,39 @@
             <p id="expense-value" class="summary-value summary-value--expense">US$0.00</p>
           </article>
         </div>
+
+        <section class="panel comparison-panel" aria-labelledby="comparison-title">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">Comparación</p>
+              <h3 id="comparison-title">Ingresos y gastos</h3>
+            </div>
+            <p id="comparison-period" class="comparison-period">Todo el tiempo</p>
+          </div>
+          <div class="comparison-chart">
+            <div class="comparison-row">
+              <div class="comparison-label">
+                <span>Ingresos</span>
+                <span id="comparison-income-value">US$0.00</span>
+              </div>
+              <div class="comparison-track" aria-hidden="true">
+                <span id="income-bar" class="comparison-bar comparison-bar--income"></span>
+              </div>
+            </div>
+            <div class="comparison-row">
+              <div class="comparison-label">
+                <span>Gastos</span>
+                <span id="comparison-expense-value">US$0.00</span>
+              </div>
+              <div class="comparison-track" aria-hidden="true">
+                <span id="expense-bar" class="comparison-bar comparison-bar--expense"></span>
+              </div>
+            </div>
+          </div>
+          <p id="comparison-message" class="comparison-message" role="status" aria-live="polite">
+            Registra un movimiento para ver la comparación.
+          </p>
+        </section>
       </section>
 
       <div class="content-grid">
