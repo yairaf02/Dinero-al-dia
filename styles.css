@@ -263,6 +263,27 @@ button:focus {
   color: #ffe0a8;
 }
 
+.bcv-rate-list {
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin: 0.55rem 0 0;
+  padding: 0;
+  list-style: none;
+  color: #ffffff;
+  font-size: 0.75rem;
+  font-weight: 700;
+}
+
+.bcv-rate-list li {
+  padding: 0.25rem 0.55rem;
+  border: 1px solid rgb(255 255 255 / 25%);
+  border-radius: 0.6rem;
+  background: rgb(255 255 255 / 10%);
+}
+
 .content-grid {
   display: grid;
   grid-template-columns: minmax(16rem, 0.8fr) minmax(20rem, 1.2fr);
@@ -285,6 +306,34 @@ button:focus {
 
 .auth-grid form {
   min-width: 0;
+  padding: 1.25rem;
+  border: 1px solid var(--border);
+  border-radius: 0.9rem;
+  background: var(--surface-soft);
+}
+
+.password-reset-form {
+  max-width: 32rem;
+  margin-top: 1.5rem;
+}
+
+.text-button {
+  display: block;
+  width: auto;
+  margin-top: 0.75rem;
+  padding: 0.25rem 0;
+  color: var(--purple);
+  background: transparent;
+  box-shadow: none;
+  text-align: left;
+  text-decoration: underline;
+}
+
+.text-button:hover {
+  color: var(--purple-dark);
+  background: transparent;
+  box-shadow: none;
+  transform: none;
 }
 
 .session-panel {

@@ -13,6 +13,7 @@ const state = {
   period: "all",
   user: null,
   authInitialized: false,
+  passwordRecovery: false,
   loadGeneration: 0
 };
 
@@ -21,7 +22,13 @@ const elements = {
   authForms: document.querySelector("#auth-forms"),
   authMessage: document.querySelector("#auth-message"),
   signInForm: document.querySelector("#sign-in-form"),
+  signInEmail: document.querySelector("#sign-in-email"),
+  forgotPasswordButton: document.querySelector("#forgot-password-button"),
   signUpForm: document.querySelector("#sign-up-form"),
+  signUpName: document.querySelector("#sign-up-name"),
+  passwordResetForm: document.querySelector("#password-reset-form"),
+  newPassword: document.querySelector("#new-password"),
+  confirmNewPassword: document.querySelector("#confirm-new-password"),
   sessionPanel: document.querySelector("#session-panel"),
   sessionEmail: document.querySelector("#session-email"),
   signOutButton: document.querySelector("#sign-out-button"),
@@ -40,6 +47,7 @@ const elements = {
   expense: document.querySelector("#expense-value"),
   conversions: document.querySelector("#conversion-list"),
   rateStatus: document.querySelector("#rate-status"),
+  bcvRates: document.querySelector("#bcv-rate-list"),
   list: document.querySelector("#transaction-list"),
   empty: document.querySelector("#empty-state"),
   count: document.querySelector("#transaction-count")
@@ -48,7 +56,9 @@ const elements = {
 elements.date.value = new Date().toISOString().slice(0, 10);
 elements.form.addEventListener("submit", handleSubmit);
 elements.signInForm.addEventListener("submit", handleSignIn);
+elements.forgotPasswordButton.addEventListener("click", handleForgotPassword);
 elements.signUpForm.addEventListener("submit", handleSignUp);
+elements.passwordResetForm.addEventListener("submit", handlePasswordReset);
 elements.signOutButton.addEventListener("click", handleSignOut);
 elements.retryLoadButton.addEventListener("click", () => {
   if (state.user) {
@@ -61,7 +71,10 @@ elements.period.addEventListener("change", () => {
 });
 if (supabaseClient) {
   setAuthMessage("Verificando tu sesión...");
-  supabaseClient.auth.onAuthStateChange((_event, session) => {
+  supabaseClient.auth.onAuthStateChange((event, session) => {
+    if (event === "PASSWORD_RECOVERY") {
+      state.passwordRecovery = true;
+    }
     void applyAuthSession(session);
   });
 } else {
@@ -146,15 +159,52 @@ async function handleSignIn(event) {
   );
 }
 
+async function handleForgotPassword() {
+  const email = elements.signInEmail.value.trim();
+  if (!email) {
+    setAuthMessage("Escribe tu correo electrónico para recibir el enlace de recuperación.", true);
+    elements.signInEmail.focus();
+    return;
+  }
+  if (!elements.signInEmail.checkValidity()) {
+    elements.signInEmail.reportValidity();
+    return;
+  }
+
+  setAuthBusy(true);
+  setAuthMessage("Enviando instrucciones de recuperación...");
+  try {
+    const { error } = await supabaseClient.auth.resetPasswordForEmail(email, {
+      redirectTo: `${window.location.origin}${window.location.pathname}`
+    });
+    if (error) {
+      setAuthMessage("No se pudieron enviar las instrucciones. Inténtalo de nuevo.", true);
+      return;
+    }
+    setAuthMessage("Si existe una cuenta con ese correo, recibirás un enlace para cambiar la contraseña.");
+  } catch {
+    setAuthMessage("No se pudieron enviar las instrucciones. Inténtalo de nuevo.", true);
+  } finally {
+    setAuthBusy(false);
+  }
+}
+
 async function handleSignUp(event) {
   event.preventDefault();
   const formData = new FormData(elements.signUpForm);
+  const displayName = String(formData.get("display_name") ?? "").trim();
+  if (!displayName) {
+    setAuthMessage("Escribe el nombre o apodo que quieres mostrar en tu cuenta.", true);
+    elements.signUpName.focus();
+    return;
+  }
   const email = formData.get("email");
   await authenticate(
     () => supabaseClient.auth.signUp({
       email,
       password: formData.get("password"),
       options: {
+        data: { display_name: displayName },
         emailRedirectTo: `${window.location.origin}${window.location.pathname}`
       }
     }),
@@ -168,6 +218,46 @@ async function handleSignUp(event) {
       }
     }
   );
+}
+
+async function handlePasswordReset(event) {
+  event.preventDefault();
+  const password = elements.newPassword.value;
+  if (password.length < 8) {
+    setAuthMessage("La contraseña nueva debe tener al menos 8 caracteres.", true);
+    elements.newPassword.focus();
+    return;
+  }
+  if (password !== elements.confirmNewPassword.value) {
+    setAuthMessage("Las contraseñas no coinciden. Revísalas e inténtalo de nuevo.", true);
+    elements.confirmNewPassword.focus();
+    return;
+  }
+
+  setAuthBusy(true);
+  setAuthMessage("Actualizando tu contraseña...");
+  try {
+    const { error } = await supabaseClient.auth.updateUser({ password });
+    if (error) {
+      setAuthMessage("No se pudo actualizar la contraseña. Solicita un enlace nuevo e inténtalo otra vez.", true);
+      return;
+    }
+
+    state.passwordRecovery = false;
+    elements.passwordResetForm.reset();
+    elements.passwordResetForm.hidden = true;
+    elements.sessionPanel.hidden = false;
+    elements.authForms.hidden = true;
+    elements.accountTitle.textContent = "Tu cuenta";
+    setAuthMessage("Contraseña actualizada. Iniciaste sesión.");
+    if (state.user) {
+      await loadUserTransactions(state.user.id);
+    }
+  } catch {
+    setAuthMessage("No se pudo actualizar la contraseña. Solicita un enlace nuevo e inténtalo otra vez.", true);
+  } finally {
+    setAuthBusy(false);
+  }
 }
 
 async function authenticate(operation, errorMessage, onSuccess = null) {
@@ -210,7 +300,7 @@ async function handleSignOut() {
 
 async function applyAuthSession(session) {
   const user = session?.user ?? null;
-  if (state.authInitialized && state.user?.id === user?.id) {
+  if (state.authInitialized && state.user?.id === user?.id && !state.passwordRecovery) {
     return;
   }
 
@@ -225,8 +315,15 @@ async function applyAuthSession(session) {
   elements.accountContent.hidden = true;
   elements.retryLoadButton.hidden = true;
   elements.accountStatus.hidden = true;
-  elements.authForms.hidden = Boolean(user);
-  elements.sessionPanel.hidden = !user;
+  elements.authForms.hidden = Boolean(user) || state.passwordRecovery;
+  elements.passwordResetForm.hidden = !state.passwordRecovery;
+  elements.sessionPanel.hidden = !user || state.passwordRecovery;
+
+  if (state.passwordRecovery) {
+    elements.accountTitle.textContent = "Restablece tu contraseña";
+    setAuthMessage("Enlace verificado. Elige una contraseña nueva para tu cuenta.");
+    return;
+  }
 
   if (!user) {
     elements.accountTitle.textContent = "Accede a tus finanzas";
@@ -236,6 +333,12 @@ async function applyAuthSession(session) {
   }
 
   elements.accountTitle.textContent = "Tu cuenta";
+  const displayName = typeof user.user_metadata?.display_name === "string"
+    ? user.user_metadata.display_name.trim()
+    : "";
+  if (displayName) {
+    elements.accountTitle.textContent = `Hola, ${displayName}`;
+  }
   elements.sessionEmail.textContent = user.email ?? "Sesión activa";
   setAuthMessage("Cuenta conectada.");
   await loadUserTransactions(user.id);
@@ -352,11 +455,31 @@ function renderConversions(balance) {
 
 function renderRateStatus() {
   const metadata = getRateMetadata();
-  const dateText = metadata.date ? ` · Fecha: ${metadata.date}` : "";
+  const dateText = metadata.date ? ` · Vigente: ${metadata.date}` : "";
   elements.rateStatus.textContent = `${metadata.source}${dateText}`;
   elements.rateStatus.className = metadata.isLive
     ? "rate-status"
     : "rate-status rate-status--fallback";
+
+  const exchangeRates = getExchangeRates();
+  const vesPerEur = exchangeRates.VES / exchangeRates.EUR;
+  const rates = [
+    ["1 US$", exchangeRates.VES],
+    ["1 €", vesPerEur]
+  ];
+  const rateFormatter = new Intl.NumberFormat("es-VE", {
+    minimumFractionDigits: 2,
+    maximumFractionDigits: 7
+  });
+  elements.bcvRates.replaceChildren();
+  for (const [currency, rate] of rates) {
+    if (!Number.isFinite(rate) || rate <= 0) {
+      continue;
+    }
+    const item = document.createElement("li");
+    item.textContent = `${currency} = Bs. ${rateFormatter.format(rate)}`;
+    elements.bcvRates.append(item);
+  }
 }
 
 function renderTransactions(transactions) {
@@ -420,7 +543,7 @@ function setAuthMessage(message, isError = false) {
 }
 
 function setAuthBusy(isBusy) {
-  elements.authForms.querySelectorAll('button[type="submit"]').forEach((button) => {
+  document.querySelectorAll("#auth-forms button, #password-reset-form button").forEach((button) => {
     button.disabled = isBusy;
   });
 }

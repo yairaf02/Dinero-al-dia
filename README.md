@@ -18,8 +18,9 @@ y transacciones se administran con Supabase Auth y PostgreSQL.
    para el origen desde el que servirás la aplicación. El registro puede
    requerir confirmar el correo antes de iniciar sesión, según la configuración
    de confirmación de correo del proyecto. El enlace de confirmación vuelve a
-   la dirección actual de la aplicación; si pruebas localmente en el puerto
-   `8765`, agrega `http://localhost:8765/**` a las URL permitidas.
+   la dirección actual de la aplicación; los enlaces para restablecer contraseña
+   usan esa misma dirección. Si pruebas localmente en el puerto `8765`, agrega
+   `http://localhost:8765/**` a las URL permitidas.
 
 ## Ejecución local
 
@@ -31,7 +32,11 @@ JavaScript requieren un origen HTTP(S).
 Las transacciones nuevas se guardan en Supabase por cuenta y se sincronizan
 cuando esa cuenta inicia sesión. Los movimientos que se hubieran guardado antes
 en `localStorage` no se importan. El cierre de sesión retira los datos de la
-cuenta de la pantalla.
+cuenta de la pantalla. Para recuperar una contraseña, usa **¿Olvidaste tu
+contraseña?** en el formulario de inicio de sesión y sigue el enlace recibido
+por correo para establecer una nueva. Al crear una cuenta se solicita un nombre
+para mostrar; las sesiones nuevas saludan con ese nombre. Las cuentas previas
+sin nombre guardado muestran el título genérico “Tu cuenta”.
 
 ## Compartir en GitHub Pages
 
@@ -59,9 +64,10 @@ Antes de compartir la aplicación:
 
 ## Estructura
 
-- `index.html`: estructura semántica, acceso a cuenta y controles de la app.
+- `index.html`: estructura semántica, formularios de cuenta y controles de la app.
 - `styles.css`: estilos responsive, contraste y estados de foco.
-- `script.js`: autenticación, carga/guardado por usuario, validación y cálculos.
+- `script.js`: autenticación, recuperación de contraseña, carga/guardado por
+  usuario, saludo personalizado, validación y cálculos.
 - `supabase-client.js`: configuración del cliente oficial `supabase-js`.
 - `.github/workflows/deploy-pages.yml`: despliegue estático a GitHub Pages.
 - `supabase/schema.sql`: tabla y políticas de seguridad por fila (RLS).
@@ -69,9 +75,10 @@ Antes de compartir la aplicación:
 
 Al abrir la aplicación, consulta automáticamente
 `https://bcv.today/api/v1/rate.json`, un servicio intermediario que publica
-tasas basadas en el BCV. Si la consulta falla, usa la última tasa válida
-guardada localmente o una tasa de respaldo manual. La fecha y el origen de la
-tasa se muestran en el resumen. El historial muestra cada movimiento en
-dólares y sus equivalentes en bolívares y euros cuando las tasas están
+tasas oficiales publicadas por el BCV. El resumen muestra las tasas de
+bolívares por dólar y por euro, su fecha de vigencia y su origen. Si la consulta
+falla, identifica que se usa la última tasa BCV guardada o una tasa manual de
+respaldo, que puede no estar actualizada. El historial muestra cada movimiento
+en dólares y sus equivalentes en bolívares y euros cuando las tasas están
 disponibles. Las conversiones son una vista derivada: no modifican los montos
 guardados.

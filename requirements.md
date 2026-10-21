@@ -97,6 +97,25 @@ la base de datos procesa la operación, **entonces** las políticas RLS permiten
 únicamente leer o insertar registros cuyo propietario coincide con la cuenta
 autenticada.
 
+### RF-14: Recuperar contraseña
+
+**Dado** que la persona no puede iniciar sesión, **cuando** escribe su correo y
+solicita recuperar la contraseña, **entonces** recibe un enlace para restablecerla
+sin que la interfaz revele si el correo está registrado.
+
+**Cuando** abre un enlace de recuperación válido, **entonces** puede escribir y
+confirmar una contraseña nueva de al menos 8 caracteres y recibe un mensaje
+accesible que confirma el resultado.
+
+### RF-15: Personalizar el saludo de la cuenta
+
+**Dado** que una persona crea una cuenta, **cuando** ingresa su nombre para
+mostrar, **entonces** se guarda en los metadatos de su perfil y se presenta como
+saludo al iniciar sesión.
+
+Las cuentas sin nombre guardado conservan un título genérico, y el texto del
+nombre se inserta de forma segura en la interfaz.
+
 ### RF-05: Calcular el resumen
 
 **Dado** un conjunto de movimientos  
@@ -136,8 +155,8 @@ movimientos.
 
 **Dado** que la aplicación puede acceder al servicio intermediario de tasas  
 **Cuando** se carga la aplicación  
-**Entonces** consulta la tasa vigente y muestra la fuente y fecha de
-actualización.
+**Entonces** consulta las tasas oficiales vigentes del BCV y muestra las tasas
+de bolívares por dólar y por euro, junto con su fuente y fecha de vigencia.
 
 Si la consulta no está disponible, la aplicación usa la última tasa válida
 guardada localmente o una tasa de respaldo manual claramente identificada.
@@ -201,3 +220,7 @@ El MVP se considera listo cuando:
 8. Los estados vacío, error y éxito son claros y accesibles.
 9. La aplicación funciona en pantalla pequeña y grande.
 10. La sintaxis JavaScript y las comprobaciones disponibles pasan sin errores.
+11. Al crear una cuenta se pide un nombre para mostrar y la sesión lo usa en el
+    saludo; cuentas previas sin nombre conservan el título genérico.
+12. El resumen muestra las tasas BCV de USD/VES y EUR/VES y su fecha; la caché
+    o el respaldo manual se distinguen de una consulta en vivo.

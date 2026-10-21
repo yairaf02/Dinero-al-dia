@@ -16,7 +16,7 @@ let exchangeRates = { ...fallbackRates };
 let rateMetadata = {
   date: null,
   isLive: false,
-  source: "Tasa de respaldo manual"
+  source: "Tasa manual de respaldo · no actualizada por BCV"
 };
 
 restoreSavedRates();
@@ -51,7 +51,7 @@ export async function fetchBcvRates() {
   rateMetadata = {
     date: typeof data.effective_date === "string" ? data.effective_date : data.date,
     isLive: true,
-    source: "Tasa referencial basada en BCV"
+    source: "Tasa oficial BCV · consultada vía bcv.today"
   };
   saveRates();
   return getExchangeRates();
@@ -93,14 +93,14 @@ function restoreSavedRates() {
     exchangeRates = saved.rates;
     rateMetadata = {
       date: typeof saved.date === "string" ? saved.date : null,
-      isLive: true,
-      source: "Última tasa válida basada en BCV"
+      isLive: false,
+      source: "Última tasa BCV guardada · vía bcv.today"
     };
   } catch {
     rateMetadata = {
       date: null,
       isLive: false,
-      source: "Tasa de respaldo manual"
+      source: "Tasa manual de respaldo · no actualizada por BCV"
     };
   }
 }

@@ -37,9 +37,17 @@
                 autocomplete="current-password" required>
             </div>
             <button type="submit">Iniciar sesión</button>
+            <button id="forgot-password-button" class="text-button" type="button">
+              ¿Olvidaste tu contraseña?
+            </button>
           </form>
           <form id="sign-up-form">
             <h3>Crear cuenta</h3>
+            <div class="field">
+              <label for="sign-up-name">Nombre para mostrar (nombre o apodo)</label>
+              <input id="sign-up-name" name="display_name" type="text"
+                autocomplete="name" maxlength="60" required>
+            </div>
             <div class="field">
               <label for="sign-up-email">Correo electrónico</label>
               <input id="sign-up-email" name="email" type="email"
@@ -53,6 +61,21 @@
             <button type="submit">Crear cuenta</button>
           </form>
         </div>
+        <form id="password-reset-form" class="password-reset-form" hidden>
+          <h3>Elige una contraseña nueva</h3>
+          <p>Usa al menos 8 caracteres y confírmala para guardar el cambio.</p>
+          <div class="field">
+            <label for="new-password">Nueva contraseña</label>
+            <input id="new-password" name="password" type="password"
+              autocomplete="new-password" minlength="8" required>
+          </div>
+          <div class="field">
+            <label for="confirm-new-password">Confirma la nueva contraseña</label>
+            <input id="confirm-new-password" name="password-confirmation" type="password"
+              autocomplete="new-password" minlength="8" required>
+          </div>
+          <button type="submit">Guardar contraseña nueva</button>
+        </form>
         <div id="session-panel" class="session-panel" hidden>
           <p id="session-email"></p>
           <button id="sign-out-button" class="button-secondary" type="button">
@@ -88,8 +111,9 @@
             <p id="balance-value" class="summary-value">US$0.00</p>
             <div id="conversion-list" class="conversion-list"></div>
             <p id="rate-status" class="rate-status" role="status" aria-live="polite">
-              Consultando tasa referencial...
+              Consultando tasas oficiales del BCV...
             </p>
+            <ul id="bcv-rate-list" class="bcv-rate-list" aria-label="Tasas de cambio del BCV"></ul>
           </article>
           <article class="summary-card">
             <h3>Ingresos</h3>
