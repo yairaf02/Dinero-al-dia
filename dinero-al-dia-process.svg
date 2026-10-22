@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1340" viewBox="0 0 1600 1340" role="img" aria-labelledby="title description">
   <title id="title">Building Dinero al Día</title>
-  <desc id="description">An infographic explaining the development process, technology, AI-assisted coding, and lessons learned while building Dinero al Día, a personal finance web app.</desc>
+  <desc id="description">An infographic explaining the development process, technology, AI-assisted coding, lessons learned, and possible next steps for Dinero al Día, a personal finance web app.</desc>
   <defs>
     <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
       <stop offset="0" stop-color="#f7f4eb"/>
@@ -133,12 +133,16 @@
   <text x="104" y="1148" class="eyebrow" fill="#438779">05 / NEXT STEPS</text>
   <text x="104" y="1180" class="section-title">Keep improving the project</text>
   <g>
-    <circle cx="124" cy="1224" r="17" fill="#dff0e8"/><text x="124" y="1230" text-anchor="middle" fill="#24675b" font-size="14" font-weight="750">1</text>
-    <text x="153" y="1220" class="body"><tspan x="153">Add automated tests for</tspan><tspan x="153" dy="21">calculations and validation.</tspan></text>
-    <circle cx="575" cy="1224" r="17" fill="#e5ebfa"/><text x="575" y="1230" text-anchor="middle" fill="#435e9c" font-size="14" font-weight="750">2</text>
-    <text x="604" y="1220" class="body"><tspan x="604">Improve loading, error, and</tspan><tspan x="604" dy="21">exchange-rate fallback states.</tspan></text>
-    <circle cx="1050" cy="1224" r="17" fill="#f8ead4"/><text x="1050" y="1230" text-anchor="middle" fill="#9b6527" font-size="14" font-weight="750">3</text>
-    <text x="1079" y="1220" class="body"><tspan x="1079">Gather feedback; refine mobile</tspan><tspan x="1079" dy="21">accessibility and usability.</tspan></text>
+    <circle cx="116" cy="1234" r="17" fill="#dff0e8"/><text x="116" y="1240" text-anchor="middle" fill="#24675b" font-size="14" font-weight="750">1</text>
+    <text x="143" y="1230" class="body"><tspan x="143">Connect to your bank</tspan><tspan x="143" dy="21">Explore secure bank linking.</tspan></text>
+    <circle cx="402" cy="1234" r="17" fill="#e5ebfa"/><text x="402" y="1240" text-anchor="middle" fill="#435e9c" font-size="14" font-weight="750">2</text>
+    <text x="429" y="1230" class="body"><tspan x="429">Automate expense</tspan><tspan x="429" dy="21">categorization.</tspan></text>
+    <circle cx="688" cy="1234" r="17" fill="#f8ead4"/><text x="688" y="1240" text-anchor="middle" fill="#9b6527" font-size="14" font-weight="750">3</text>
+    <text x="715" y="1230" class="body"><tspan x="715">Improve the interface</tspan><tspan x="715" dy="21">clarity and usability.</tspan></text>
+    <circle cx="974" cy="1234" r="17" fill="#f7e2e2"/><text x="974" y="1240" text-anchor="middle" fill="#a04c49" font-size="14" font-weight="750">4</text>
+    <text x="1001" y="1230" class="body"><tspan x="1001">Add low-balance alerts</tspan><tspan x="1001" dy="21">Warn when funds run low.</tspan></text>
+    <circle cx="1260" cy="1234" r="17" fill="#e5eee9"/><text x="1260" y="1240" text-anchor="middle" fill="#24675b" font-size="14" font-weight="750">5</text>
+    <text x="1287" y="1230" class="body"><tspan x="1287">Flag frequent small expenses</tspan><tspan x="1287" dy="21">Spot recurring small purchases.</tspan></text>
   </g>
   <text x="800" y="1320" text-anchor="middle" fill="#66777d" font-size="12">A practical learning project: build small, protect user data, and verify what you ship.</text>
 </svg>
