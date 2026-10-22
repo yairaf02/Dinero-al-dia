@@ -1,0 +1,144 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1600" height="1340" viewBox="0 0 1600 1340" role="img" aria-labelledby="title description">
+  <title id="title">Building Dinero al Día</title>
+  <desc id="description">An infographic explaining the development process, technology, AI-assisted coding, and lessons learned while building Dinero al Día, a personal finance web app.</desc>
+  <defs>
+    <linearGradient id="background" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f7f4eb"/>
+      <stop offset="1" stop-color="#eaf2ef"/>
+    </linearGradient>
+    <linearGradient id="hero" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#142c3a"/>
+      <stop offset="1" stop-color="#205c60"/>
+    </linearGradient>
+    <filter id="shadow" x="-10%" y="-10%" width="120%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="12" flood-color="#142c3a" flood-opacity=".08"/>
+    </filter>
+    <style>
+      text { font-family: Inter, "Segoe UI", Arial, sans-serif; }
+      .eyebrow { font-size: 15px; font-weight: 700; letter-spacing: 2.6px; }
+      .section-title { fill: #142c3a; font-size: 22px; font-weight: 750; }
+      .card-title { fill: #142c3a; font-size: 17px; font-weight: 700; }
+      .body { fill: #52636a; font-size: 14px; }
+      .small { fill: #66777d; font-size: 12px; }
+    </style>
+  </defs>
+
+  <rect width="1600" height="1340" fill="url(#background)"/>
+  <circle cx="1470" cy="160" r="170" fill="#dce9e3" opacity=".55"/>
+  <circle cx="90" cy="970" r="210" fill="#e4e9dd" opacity=".65"/>
+
+  <g filter="url(#shadow)">
+    <rect x="64" y="52" width="1472" height="220" rx="28" fill="url(#hero)"/>
+  </g>
+  <text x="104" y="100" class="eyebrow" fill="#a8d7c7">A PERSONAL FINANCE WEB APP · BUILD STORY</text>
+  <text x="104" y="160" fill="#ffffff" font-size="46" font-weight="760">Building Dinero al Día</text>
+  <text x="106" y="198" fill="#dce9e8" font-size="19">From a clear problem to a secure, helpful finance dashboard.</text>
+  <text x="106" y="235" fill="#a8d7c7" font-size="14" font-weight="650">PLAN → DESIGN → CODE → VERIFY → SHARE</text>
+  <g transform="translate(1335 117)">
+    <circle cx="74" cy="62" r="61" fill="#ffffff" opacity=".09"/>
+    <circle cx="74" cy="62" r="43" fill="none" stroke="#9bd1be" stroke-width="9" stroke-dasharray="202 68" transform="rotate(-90 74 62)"/>
+    <path d="M49 63l17 17 34-39" fill="none" stroke="#ffffff" stroke-width="7" stroke-linecap="round" stroke-linejoin="round"/>
+    <text x="74" y="137" fill="#dce9e8" font-size="12" text-anchor="middle">BUILT WITH CARE</text>
+  </g>
+
+  <text x="72" y="326" class="eyebrow" fill="#438779">01 / THE PROCESS</text>
+  <text x="72" y="358" class="section-title">A focused path from idea to working product</text>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="382" width="346" height="160" rx="18" fill="#ffffff"/>
+    <rect x="442" y="382" width="346" height="160" rx="18" fill="#ffffff"/>
+    <rect x="812" y="382" width="346" height="160" rx="18" fill="#ffffff"/>
+    <rect x="1182" y="382" width="346" height="160" rx="18" fill="#ffffff"/>
+  </g>
+  <g>
+    <circle cx="110" cy="424" r="20" fill="#dff0e8"/><text x="110" y="430" text-anchor="middle" fill="#24675b" font-size="16" font-weight="750">1</text>
+    <text x="143" y="429" class="card-title">Define the need</text>
+    <text x="98" y="468" class="body"><tspan x="98">Make it easy to track income, expenses,</tspan><tspan x="98" dy="22">period balances, and currency equivalents.</tspan></text>
+    <text x="98" y="521" class="small">Requirements · user-focused scope</text>
+
+    <circle cx="480" cy="424" r="20" fill="#e5ebfa"/><text x="480" y="430" text-anchor="middle" fill="#435e9c" font-size="16" font-weight="750">2</text>
+    <text x="513" y="429" class="card-title">Design and build</text>
+    <text x="468" y="468" class="body"><tspan x="468">Create a responsive, accessible interface</tspan><tspan x="468" dy="22">with native web technologies.</tspan></text>
+    <text x="468" y="521" class="small">Semantic HTML · CSS · vanilla JavaScript</text>
+
+    <circle cx="850" cy="424" r="20" fill="#f8ead4"/><text x="850" y="430" text-anchor="middle" fill="#9b6527" font-size="16" font-weight="750">3</text>
+    <text x="883" y="429" class="card-title">Connect and protect</text>
+    <text x="838" y="468" class="body"><tspan x="838">Add accounts and per-user transaction</tspan><tspan x="838" dy="22">storage; keep conversions read-only.</tspan></text>
+    <text x="838" y="521" class="small">Supabase Auth · PostgreSQL · RLS · BCV rates</text>
+
+    <circle cx="1220" cy="424" r="20" fill="#f7e2e2"/><text x="1220" y="430" text-anchor="middle" fill="#a04c49" font-size="16" font-weight="750">4</text>
+    <text x="1253" y="429" class="card-title">Verify and share</text>
+    <text x="1208" y="468" class="body"><tspan x="1208">Check calculations, validation, and</tspan><tspan x="1208" dy="22">small-screen behavior; publish the site.</tspan></text>
+    <text x="1208" y="521" class="small">Browser checks · GitHub Pages</text>
+  </g>
+  <g fill="none" stroke="#94aaa4" stroke-width="2.5" stroke-linecap="round">
+    <path d="M420 462h15"/><path d="m429 456 6 6-6 6"/>
+    <path d="M790 462h15"/><path d="m799 456 6 6-6 6"/>
+    <path d="M1160 462h15"/><path d="m1169 456 6 6-6 6"/>
+  </g>
+
+  <text x="72" y="602" class="eyebrow" fill="#438779">02 / THE TOOLKIT</text>
+  <text x="72" y="634" class="section-title">Technology chosen for a lightweight, trustworthy app</text>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="657" width="700" height="176" rx="20" fill="#ffffff"/>
+    <rect x="798" y="657" width="730" height="176" rx="20" fill="#ffffff"/>
+  </g>
+  <text x="102" y="694" class="eyebrow" fill="#438779">FRONT END</text>
+  <g>
+    <rect x="102" y="713" width="132" height="40" rx="12" fill="#f1f5f2"/><text x="168" y="739" text-anchor="middle" class="card-title" font-size="15">HTML5</text>
+    <rect x="246" y="713" width="132" height="40" rx="12" fill="#f1f5f2"/><text x="312" y="739" text-anchor="middle" class="card-title" font-size="15">CSS3</text>
+    <rect x="390" y="713" width="176" height="40" rx="12" fill="#f1f5f2"/><text x="478" y="739" text-anchor="middle" class="card-title" font-size="15">Vanilla JavaScript</text>
+    <rect x="578" y="713" width="110" height="40" rx="12" fill="#f1f5f2"/><text x="633" y="739" text-anchor="middle" class="card-title" font-size="15">JSON</text>
+    <text x="102" y="788" class="body">Responsive UI · validation · summaries · currency formatting</text>
+    <text x="102" y="812" class="small">No framework or required build step</text>
+  </g>
+  <text x="828" y="694" class="eyebrow" fill="#438779">DATA, RATES &amp; DEPLOYMENT</text>
+  <g>
+    <rect x="828" y="713" width="153" height="40" rx="12" fill="#f1f5f2"/><text x="904" y="739" text-anchor="middle" class="card-title" font-size="15">Supabase Auth</text>
+    <rect x="993" y="713" width="176" height="40" rx="12" fill="#f1f5f2"/><text x="1081" y="739" text-anchor="middle" class="card-title" font-size="15">PostgreSQL + RLS</text>
+    <rect x="1181" y="713" width="163" height="40" rx="12" fill="#f1f5f2"/><text x="1262" y="739" text-anchor="middle" class="card-title" font-size="15">GitHub Pages</text>
+    <rect x="828" y="765" width="236" height="40" rx="12" fill="#f1f5f2"/><text x="946" y="791" text-anchor="middle" class="card-title" font-size="15">BCV exchange-rate API</text>
+    <text x="1080" y="780" class="body">Account-based access · protected rows</text>
+    <text x="1080" y="803" class="small">Derived conversions · public client config only</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="858" width="700" height="230" rx="20" fill="#142c3a"/>
+    <rect x="798" y="858" width="730" height="230" rx="20" fill="#ffffff"/>
+  </g>
+  <text x="104" y="895" class="eyebrow" fill="#a8d7c7">03 / AI-ASSISTED CODING</text>
+  <text x="104" y="929" fill="#ffffff" font-size="20" font-weight="720">AI as a coding partner, not the decision-maker</text>
+  <text x="104" y="960" fill="#dce9e8" font-size="14"><tspan x="104">Use GitHub Copilot to explore approaches, draft and refine code,</tspan><tspan x="104" dy="22">explain errors, and improve documentation. Review suggestions,</tspan><tspan x="104" dy="22">test the behavior, and keep product decisions in human hands.</tspan></text>
+
+  <text x="830" y="895" class="eyebrow" fill="#438779">04 / WHAT I LEARNED</text>
+  <g>
+    <circle cx="842" cy="930" r="4" fill="#438779"/>
+    <text x="857" y="935" class="body">Built confidence using GitHub Copilot and new AI tools.</text>
+    <circle cx="842" cy="958" r="4" fill="#438779"/>
+    <text x="857" y="963" class="body">Explored AI models and learned about token limits.</text>
+    <circle cx="842" cy="986" r="4" fill="#438779"/>
+    <text x="857" y="991" class="body">Used Plan mode to organize coding work before implementation.</text>
+    <circle cx="842" cy="1014" r="4" fill="#438779"/>
+    <text x="857" y="1019" class="body">Used Git branches to isolate and track changes.</text>
+    <circle cx="842" cy="1042" r="4" fill="#438779"/>
+    <text x="857" y="1047" class="body">Learned why secure accounts and row-level policies matter.</text>
+    <circle cx="842" cy="1070" r="4" fill="#438779"/>
+    <text x="857" y="1075" class="body">Practiced validation, accessible design, and responsive UI.</text>
+  </g>
+
+  <g filter="url(#shadow)">
+    <rect x="72" y="1110" width="1456" height="176" rx="20" fill="#ffffff"/>
+  </g>
+  <text x="104" y="1148" class="eyebrow" fill="#438779">05 / NEXT STEPS</text>
+  <text x="104" y="1180" class="section-title">Keep improving the project</text>
+  <g>
+    <circle cx="124" cy="1224" r="17" fill="#dff0e8"/><text x="124" y="1230" text-anchor="middle" fill="#24675b" font-size="14" font-weight="750">1</text>
+    <text x="153" y="1220" class="body"><tspan x="153">Add automated tests for</tspan><tspan x="153" dy="21">calculations and validation.</tspan></text>
+    <circle cx="575" cy="1224" r="17" fill="#e5ebfa"/><text x="575" y="1230" text-anchor="middle" fill="#435e9c" font-size="14" font-weight="750">2</text>
+    <text x="604" y="1220" class="body"><tspan x="604">Improve loading, error, and</tspan><tspan x="604" dy="21">exchange-rate fallback states.</tspan></text>
+    <circle cx="1050" cy="1224" r="17" fill="#f8ead4"/><text x="1050" y="1230" text-anchor="middle" fill="#9b6527" font-size="14" font-weight="750">3</text>
+    <text x="1079" y="1220" class="body"><tspan x="1079">Gather feedback; refine mobile</tspan><tspan x="1079" dy="21">accessibility and usability.</tspan></text>
+  </g>
+  <text x="800" y="1320" text-anchor="middle" fill="#66777d" font-size="12">A practical learning project: build small, protect user data, and verify what you ship.</text>
+</svg>
